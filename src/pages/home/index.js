@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ScrollView} from 'react-native'
 
 import { Container,
@@ -16,7 +16,52 @@ import Header from '../../components/Header'
 
 import SliderItem from '../../components/SliderItem'
 
+import api, { key } from '../../services/api'
+
 function Home(){
+
+    const [nowMovies, setNowMovies] = useState([])
+
+    useEffect(()=>{
+       let isActive = true
+
+       async function getMovies(){
+        //const response = await api.get('/movie/now_playing',{
+        //    params:{
+        //        api_key: key,
+         //       language: 'pt-BR',
+          //      page: 1,
+         //  }
+      //  })
+        const [nowData,popularData,topData] = await Promise.all([
+            api.get('/movie/now_playing',{
+            params:{
+                api_key: key,
+                language: 'pt-BR',
+                page: 1,
+                }  
+            }),
+            api.get('/movie/popular',{
+                params:{
+                    api_key: key,
+                    language: 'pt-BR',
+                    page: 1,
+                    }  
+                }),
+            api.get('/movie/top_rated',{
+                params:{
+                    api_key: key,
+                    language: 'pt-BR',
+                    page: 1,
+                    }  
+                }),
+
+        ])
+        console.log(popularData.data.results)
+
+       }
+       getMovies()
+    })
     return(
         <Container>
             <Header title="React Prime"/>
