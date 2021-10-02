@@ -24,7 +24,7 @@ function Home(){
 
     const [nowMovies, setNowMovies] = useState([])
     const [popularMovies, setPopularMovies] = useState([])
-    const [TopMovies, setTopMovies] = useState([])
+    const [topMovies, setTopMovies] = useState([])
 
     useEffect(()=>{
        let isActive = true
@@ -69,7 +69,7 @@ function Home(){
         setNowMovies(nowList)
         setPopularMovies(popularList)
         setTopMovies(topList)
-        
+
        }
        getMovies()
     })
@@ -101,16 +101,18 @@ function Home(){
             <SliderMovie
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
-                data={[1,2,3,4]}
-                renderItem={ ({ item }) => <SliderItem/> }
+                data={nowMovies}
+                renderItem={ ({ item }) => <SliderItem data={item}/> }
+                keyExtractor={ (item) => String(item.id)}
             />
                 <Title>Populares</Title> 
 
             <SliderMovie
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
-                data={[1,2,3,4]}
-                renderItem={ ({ item }) => <SliderItem/> }
+                data={popularMovies}
+                renderItem={ ({ item }) => <SliderItem data={item}/> }
+                keyExtractor={ (item) => String(item.id)}
             />
 
                 <Title>Mais Votados</Title> 
@@ -118,8 +120,9 @@ function Home(){
             <SliderMovie
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
-                data={[1,2,3,4]}
-                renderItem={ ({ item }) => <SliderItem/> }
+                data={topMovies}
+                renderItem={ ({ item }) => <SliderItem data={item}/>}
+                keyExtractor={ (item) => String(item.id)}
             />
 
             </ScrollView>
