@@ -18,9 +18,13 @@ import SliderItem from '../../components/SliderItem'
 
 import api, { key } from '../../services/api'
 
+import { getListMovies } from '../../utils/movie'
+
 function Home(){
 
     const [nowMovies, setNowMovies] = useState([])
+    const [popularMovies, setPopularMovies] = useState([])
+    const [TopMovies, setTopMovies] = useState([])
 
     useEffect(()=>{
        let isActive = true
@@ -57,8 +61,15 @@ function Home(){
                 }),
 
         ])
-        console.log(popularData.data.results)
+        
+        const nowList = getListMovies(10, nowData.data.results)
+        const popularList = getListMovies(5, popularData.data.results)
+        const topList = getListMovies(5, topData.data.results)
 
+        setNowMovies(nowList)
+        setPopularMovies(popularList)
+        setTopMovies(topList)
+        
        }
        getMovies()
     })
