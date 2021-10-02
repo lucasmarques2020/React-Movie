@@ -1,11 +1,20 @@
 import React from "react";
-import { View, Text } from 'react-native'
+import { ScrollView} from 'react-native'
 
-import { Container, SearchContainer, SearchButton, Input } from './style'
+import { Container,
+     SearchContainer, 
+     SearchButton, 
+     Input, 
+     Title, 
+     BannerButton,
+     Banner,
+     SliderMovie } from './style'
+
 import { Feather } from '@expo/vector-icons'
 
 import Header from '../../components/Header'
 
+import SliderItem from '../../components/SliderItem'
 
 function Home(){
     return(
@@ -24,6 +33,41 @@ function Home(){
                     />
                 </SearchButton>
             </SearchContainer>
+
+            <ScrollView showsVerticalScrollIndicator={false}>
+               <Title>Em cartaz</Title> 
+               <BannerButton activeOpacity={0.6} onPress={ () => alert('FILME NÃO DISPONIVEL')}>
+                   <Banner
+                   resizeMethod="resize"
+                   source={{uri: 'https://cdn.pixabay.com/photo/2014/10/31/17/41/dancing-dave-minion-510835_960_720.jpg'}}
+                   />
+               </BannerButton>
+            <SliderMovie
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                data={[1,2,3,4]}
+                renderItem={ ({ item }) => <SliderItem/> }
+            />
+                <Title>Populares</Title> 
+
+            <SliderMovie
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                data={[1,2,3,4]}
+                renderItem={ ({ item }) => <SliderItem/> }
+            />
+
+                <Title>Mais Votados</Title> 
+
+            <SliderMovie
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                data={[1,2,3,4]}
+                renderItem={ ({ item }) => <SliderItem/> }
+            />
+
+            </ScrollView>
+
         </Container>
     )
 }
